@@ -2,6 +2,8 @@ FROM python:3.11-slim-bookworm
 
 COPY requirements.txt .
 
+COPY .env .
+
 RUN pip install -r requirements.txt
 
 WORKDIR /api

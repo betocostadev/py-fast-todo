@@ -2,8 +2,11 @@ from typing import Optional
 from fastapi import FastAPI
 from pydantic import BaseModel
 from sqlmodel import Field, Session, SQLModel, create_engine, select
+import os
+from dotenv import load_dotenv
 # import psycopg2 as pg
 
+load_dotenv()
 
 class Task(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -11,10 +14,11 @@ class Task(SQLModel, table=True):
     done: Optional[bool] = Field(default=False)
 
 
+
 api = FastAPI()
 
 engine = create_engine(
-    "postgresql://postgres:postgres@db:5432/postgres"
+    f"{os.getenv('DATABASE_URL')}"
 )
 
 
